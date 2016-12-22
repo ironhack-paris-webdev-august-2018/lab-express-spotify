@@ -28,58 +28,57 @@ app.get('/', function(req, res, next) {
 app.get('/artists', function(req, res, next) {
   let searchTerm = req.query.artist;
 
-  spotify.searchArtists(searchTerm)
-    .then((data) => {
-      let artists = data.body.artists.items;
-      res.render('artists/index', {
-        artists: artists,
-        searchTerm: searchTerm
-      });
-    }, (err) => {
-      console.error(err);
+  spotify.searchArtists(searchTerm, (err, data) => {
+    if (err) throw err;
+
+    let artists = data.body.artists.items;
+
+    res.render('artists/index', {
+      artists: artists,
+      searchTerm: searchTerm
     });
+  });
 });
 
 app.get('/albums/:artistId', function(req, res, next) {
   let artistId = req.params.artistId;
 
-  spotify.getArtistAlbums(artistId)
-    .then((data) => {
-      let albums = data.body.items;
-      let artist = data.body.items[0].artists[0].name;
+  spotify.getArtistAlbums(artistId, (err, data){
+    if (err) throw err;
 
-      res.render('albums/index', {
-        albums: albums,
-        artist: artist
-      });
-    }, (err) => {
-      console.error(err);
+    let albums = data.body.items;
+    let artist = data.body.items[0].artists[0].name;
+
+    res.render('albums/index', {
+      albums: albums,
+      artist: artist
     });
+  });
 });
 
 app.get('/tracks/:albumId', function(req, res, next) {
   let searchTerm = req.params.albumId;
 
-  spotify.getAlbumTracks(searchTerm)
-    .then((data) => {
-      let tracks = data.body.items;
-      console.log(data.body)
-      res.render('tracks/index', {
-        tracks: tracks,
-      });
-    }, (err) => {
-      console.error(err);
+
+  spotify.getAlbumTracks(searchTerm, (err, data){
+    if (err) throw err;
+
+    let tracks = data.body.items;
+    res.render('tracks/index', {
+      tracks: tracks,
     });
+  });
 });
+
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
