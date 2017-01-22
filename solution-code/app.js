@@ -28,7 +28,7 @@ app.get('/', function(req, res, next) {
 app.get('/artists', function(req, res, next) {
   let searchTerm = req.query.artist;
 
-  spotify.searchArtists(searchTerm, (err, data) => {
+  spotify.searchArtists(searchTerm, {}, (err, data) => {
     if (err) throw err;
 
     let artists = data.body.artists.items;
@@ -43,7 +43,7 @@ app.get('/artists', function(req, res, next) {
 app.get('/albums/:artistId', function(req, res, next) {
   let artistId = req.params.artistId;
 
-  spotify.getArtistAlbums(artistId, (err, data){
+  spotify.getArtistAlbums(artistId, {}, (err, data) => {
     if (err) throw err;
 
     let albums = data.body.items;
@@ -60,7 +60,7 @@ app.get('/tracks/:albumId', function(req, res, next) {
   let searchTerm = req.params.albumId;
 
 
-  spotify.getAlbumTracks(searchTerm, (err, data){
+  spotify.getAlbumTracks(searchTerm, {}, (err, data) => {
     if (err) throw err;
 
     let tracks = data.body.items;
