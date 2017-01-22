@@ -47,11 +47,11 @@ app.get('/albums/:artistId', function(req, res, next) {
     if (err) throw err;
 
     let albums = data.body.items;
-    let artist = data.body.items[0].artists[0].name;
+    let artist = albums[0].artists.find(artist => artist.id === artistId);
 
     res.render('albums/index', {
       albums: albums,
-      artist: artist
+      artist: artist.name
     });
   });
 });
