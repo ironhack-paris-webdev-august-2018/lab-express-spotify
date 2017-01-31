@@ -1,3 +1,5 @@
+![Ironhack Logo](https://i.imgur.com/1QgrNNw.png)
+
 # DE | Express Spotify Searcher
 
 ![](https://i.imgur.com/XhBF66a.png=500x)
