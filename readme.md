@@ -64,6 +64,31 @@ Let's take a look at that object:
 
 Included with the Artist object is the name, id, images, and much more. The album and tracks returned are in a *very similar structure*.
 
+#### In Express
+
+Using the package in express can be a bit trickier. Until this point, we've made a request to a route, and then rendered a page. The Spotify package is asynchronous, meaning we don't want to render our view until it is finished retrieving the data. That would like something like this:
+
+**Pseudocode**
+
+```
+// ...
+const SpotifyWebApi   = require('spotify-web-api-node');
+const spotify         = new SpotifyWebApi();
+const express         = require('express');
+
+app.get('/some-route', (req, res, next) => {
+  spotify.searchArtists("The Beatles", {}, (err, data) => {
+    if (err) throw err;
+
+    let artists = data.body.artists.items;
+    // Render after the data from spotify has returned
+    res.render('some-view', { artists });
+  });
+});
+// ...
+```
+
+
 :::danger
 :fire: *Styling should be the last thing you focus on. Functionality first this module!*
 :::
