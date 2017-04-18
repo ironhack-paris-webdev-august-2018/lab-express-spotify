@@ -88,10 +88,7 @@ app.get('/some-route', (req, res, next) => {
 // ...
 ```
 
-
-:::danger
 :fire: *Styling should be the last thing you focus on. Functionality first this module!*
-:::
 
 ## Iteration 0 | Setup
 
@@ -131,7 +128,7 @@ Create a simple home page. You'll need a basic index route, that renders a home 
 
 On this page, you should have a search form. This form should direct its query to `/artists`, and have one input with a name of `artist`.
 
-![](https://i.imgur.com/YuTA0vQ.png =400x)
+![](https://i.imgur.com/YuTA0vQ.png=400x)
 
 
 ### Step 2 | [Display results for artist search](https://iron-spotify.herokuapp.com/artists?artist=The+Beatles)
@@ -140,15 +137,13 @@ Create the route `/artists`. This route will receive the search term from the qu
 
 Display the name, an image, and a button to show the albums for a particular artist on a new view.
 
-![](https://i.imgur.com/ZqjmoCZ.png =400x)
+![](https://i.imgur.com/ZqjmoCZ.png=400x)
 
 ## Iteration 2 | [View Albums](https://iron-spotify.herokuapp.com/albums/3WrFJ7ztbogyGnTHbHJFl2)
 
 When someone clicks on the "View Albums" button, they should be taken to a page to show all of the albums for that particular artist.
 
-:::info
 :zap: Check out the `getArtistAlbums` method in the `spotify-web-api-node` package.
-:::
 
 **Hint**
 
