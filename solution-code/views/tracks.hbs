@@ -3,14 +3,14 @@
     <span class="col-lg-8">Title</span>
     <span class="col-lg-4">Listen</span>
     </div>
-    <%for(i=0; i<tracks.length; i++){ %>
+    {{#each tracks}}
     <div class="row track-item">
       <div class="col-lg-8">
-        <p><%=tracks[i].name%></p>
+        <p>{{this.name}}</p>
       </div>
       <div class="col-lg-4">
-        <audio controls="" name="media"><source src="<%=tracks[i].preview_url%>" type="audio/mpeg"></audio>
+        <audio controls="" name="media"><source src="{{this.preview_url}}" type="audio/mpeg"></audio>
       </div>
     </div>
-    <% } %>
+    {{/each}}
 </div>

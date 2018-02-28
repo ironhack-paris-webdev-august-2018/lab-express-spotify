@@ -1,14 +1,12 @@
 const SpotifyWebApi = require('spotify-web-api-node');
 const express = require('express');
 const app = express();
-const expressLayouts = require('express-ejs-layouts');
+const hbs = require('hbs');
 require("dotenv").config();
 
-app.use(express.static('public'));
-app.use(expressLayouts);
-app.set('layout', 'layouts/main-layout');
 app.set('views', __dirname + '/views');
-app.set('view engine', 'ejs');
+app.set('view engine', 'hbs');
+app.use(express.static('public'));
 
 // Remember to paste here your credentials
 var clientId = process.env.clientId,
@@ -33,33 +31,36 @@ app.get('/', (req, res, next) => {
 
 app.get('/artists', (req, res, next) => {
   spotifyApi.searchArtists(req.query.artist)
-    .then(function(data) {
+    .then(data => {
       res.render('artists', {
         artists: data.body.artists.items
       });
-    }, function(err) {
+    })
+    .catch(err => {
       console.log('Something went wrong!', err);
-    });
+    })
 });
 
 app.get('/albums/:artistId', (req, res, next) => {
   spotifyApi.getArtistAlbums(req.params.artistId)
-    .then(function(data) {
+    .then(data => {
       res.render('albums', {
         albums: data.body.items
       });
-    }, function(err) {
+    })
+    .catch(err => {
       console.log('Something went wrong!', err);
     });
 });
 
 app.get('/tracks/:albumId', (req, res, next) => {
   spotifyApi.getAlbumTracks(req.params.albumId)
-    .then(function(data) {
+    .then(data => {
       res.render('tracks', {
         tracks: data.body.items
       });
-    }, function(err) {
+    })
+    .catch(err => {
       console.log('Something went wrong!', err);
     });
 });
